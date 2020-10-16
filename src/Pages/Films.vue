@@ -152,24 +152,8 @@
 <script>
   import axios from 'axios'
   import firebase from 'firebase';
-
-  const Base_URL = "https://api.themoviedb.org/3/";
-  const API_KEY = '****************************';
-
-  let config = {
-    apiKey: "****************************",
-    authDomain: "****************************",
-    databaseURL: "***************************",
-    projectId: "***************************",
-    storageBucket: "***************************",
-    messagingSenderId: "***************************",
-    appId: "***************************",
-    measurementId: "***************************"
-  };
-
-  let app = firebase.initializeApp(config);
-
-  let db = app.database();
+  import {Base_URL, API_KEY, db} from '../config/configApp';
+  
   let favoris = db.ref('ListeFilms');
 
   export default {
