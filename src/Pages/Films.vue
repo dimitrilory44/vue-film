@@ -150,17 +150,14 @@
 </template>
 
 <script>
+  import {Base_URL, API_KEY, firebase, maListe} from '../config/configApp';
   import axios from 'axios'
-  import firebase from 'firebase';
-  import {Base_URL, API_KEY, db} from '../config/configApp';
-  
-  let favoris = db.ref('ListeFilms');
 
   export default {
     name : 'app2', 
     
     firebase: {
-      ListeFilms : favoris,
+      ListeFilms : maListe,
     },
     
     data () {
@@ -343,7 +340,7 @@
 
       addFilmsFirebase() {
         for (var index = 0; index < this.Favs.Id.length; index++) {
-          favoris.child(this.Favs.Id[index]).set({
+          maListe.child(this.Favs.Id[index]).set({
             Titre : this.Favs.Titre[index],
             Date : this.Favs.Date[index],
             Genre : this.Favs.Genre_Id[index],
