@@ -154,17 +154,17 @@
   import firebase from 'firebase';
 
   const Base_URL = "https://api.themoviedb.org/3/";
-  const API_KEY = '*************************';
+  const API_KEY = '****************************';
 
   let config = {
-    apiKey: "*************************",
-    authDomain: "*************************",
-    databaseURL: "*************************",
-    projectId: "*************************",
-    storageBucket: "*************************",
-    messagingSenderId: "*************************",
-    appId: "*************************",
-    measurementId: "*************************"
+    apiKey: "****************************",
+    authDomain: "****************************",
+    databaseURL: "***************************",
+    projectId: "***************************",
+    storageBucket: "***************************",
+    messagingSenderId: "***************************",
+    appId: "***************************",
+    measurementId: "***************************"
   };
 
   let app = firebase.initializeApp(config);
