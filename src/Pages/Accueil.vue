@@ -1,7 +1,6 @@
 <template>
   <v-container fluid>
-    <br>
-    <h2 class="titreP">Films ajoutés dernièrement</h2>
+    <h3 class="titreP">Films ajoutés dernièrement</h3>
     <v-row justify="center">
       <v-col cols="2" id="search" v-for="film in Films" v-bind:key="film.id">
         <v-card class="white--text align-end" max-width="700" max-height="440">
@@ -9,21 +8,21 @@
             <template v-slot:activator="{ on, attrs }">
               <v-img v-bind:src="film.Poster" v-bind="attrs" v-on="on" style="cursor:pointer" height="350"></v-img>
               <v-card-text class="text--primary">                              
-                <h3>{{ film.Titre }}</h3>
+                <h6>{{ film.Titre }}</h6>
               </v-card-text>
             </template>
             <v-card>
               <v-card-title>Description du film</v-card-title>
               <v-divider></v-divider>
-              <br>
+              <!-- <br> -->
               <v-container>
-                <v-img v-bind:src='film.Poster' class="image" height="380" width="240"></v-img>
+                <v-img v-bind:src='film.Poster' class="image" height="350" width="240"></v-img>
                 <h1>{{ film.Titre }}</h1>
                 {{ film.Genre[0]}}
                 <br><br>
                 <p class="titre"><strong> Date de Sortie : </strong>{{ film.Date }}</p>
-                <p class="titre"><strong> Synopsis :</strong></p>
-                <p class="paragrapheD"> {{ film.Descriptif }}</p>
+                <p class="paragrapheD"><strong> Synopsis : </strong>{{ film.Descriptif }}</p>
+                <!-- <p class="paragrapheD"> {{ film.Descriptif }}</p> -->
                 <v-container v-if="film.Acteur.length != 0">
                   <p class="paragraphe"><strong> Acteur principaux :</strong> {{ film.Acteur[0]}}, {{ film.Acteur[1]}}, {{ film.Acteur[2]}}, {{ film.Acteur[3]}}, {{ film.Acteur[4]}}</p>
                   <p class="paragraphe"><strong> Direction technique :</strong> {{ film.Direction[0]}}, {{ film.Direction[1]}}, {{ film.Direction[2]}}, {{ film.Direction[3]}}, {{ film.Direction[4]}}</p>
@@ -39,9 +38,11 @@
 </template>
 
 <script>
-  import firebase from 'firebase';
+  import {firebase} from '../config/configApp';
 
   export default {
+    name: 'Accueil',
+    
     data () {
       return {
         Films: [],
@@ -102,14 +103,14 @@
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    max-height: 70px;      /* fallback */
-   -webkit-line-clamp: 3; /* number of lines to show */
-   -webkit-box-orient: vertical;
+    max-height: 100px;      /* fallback */
+    -webkit-line-clamp: 4; /* number of lines to show */
+    -webkit-box-orient: vertical;
   }
 
   .image {
     float: left;
     height: 500px;
-    margin-right: 30px
+    margin-right: 25px;
   }
 </style>
