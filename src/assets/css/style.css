@@ -1,0 +1,128 @@
+/* ACCUEIL */
+
+#searchAccueil {
+  margin-left: 1%;
+  /* margin-right: 10px; */
+}
+
+.imageAccueil {
+  float: left;
+  height: 500px;
+  margin-right: 25px;
+}
+
+.titreAccueil {
+  text-align: left;
+  margin-left: 7%;
+}
+
+.titreAccueil {
+  text-align: left;
+  margin-left: 7%;
+}
+
+.titrePAccueil {
+  text-align: left;
+  margin-left: 7%;
+  color: grey;
+}
+
+#searchAccueil {
+  margin-left: 1%;
+  margin-right: 5px;
+}
+
+.myposter {
+  height: 220px;
+}
+
+@media (max-width: 500px) {
+  #search {
+    margin-left: 5%!important;
+    margin-right: 0px!important;
+  }
+
+  #searchAccueil {
+    margin-left: 5%;
+    /* margin-right: 10px; */
+  }
+
+  .titrePAccueil {
+    margin-left: 5%;
+  }
+
+  .titreAccueil {
+    margin-left: 12px;
+  }
+}
+
+@media (min-width: 1000px) and (max-width: 2000px) {
+  .poster {
+    width: 200px!important;
+    
+  }
+
+  .myposter {
+    height: 270px;
+  }
+  
+}
+
+/* FILMS */
+
+.btn_close {
+  /* margin-left:25px; */
+  position:absolute;
+  left: 89%;
+}
+
+.input {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+#search {
+  margin-right: 20px;
+}
+
+.titreP {
+  text-align: left;
+  margin-left: 5%;
+  margin-bottom: -20px;
+  color: grey;
+}
+
+.titre {
+  text-align: left;
+  margin-left: 12px;
+}
+
+.paragraphe {
+  text-align: justify;
+}
+
+.paragraphe_b {
+  text-align: justify;
+  text-overflow: ellipsis;
+}
+
+.paragrapheD {
+  text-align: justify;
+  margin-left: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  max-height: 80px;      /* fallback */
+  -webkit-line-clamp: 3; /* number of lines to show */
+  -webkit-box-orient: vertical;
+}
+
+.image {
+  float: left;
+  margin-right: 30px;
+  
+}
+
+.choix:active {
+  box-shadow: 0px 0px 5px 5px grey;
+}
