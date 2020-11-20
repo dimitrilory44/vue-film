@@ -1,6 +1,7 @@
 <template>
   <v-container fluid>
-    <br>
+    <v-alert v-if="erreur.length == 0 && alert == true" type="success">{{success}}</v-alert>
+    <v-alert v-else-if="erreur.length != 0 && alert == false" type="error">{{erreur}}</v-alert>
     <v-dialog :retain-focus="false" content-class="dialog" v-model="search" max-width="1000">
       <template v-slot:activator="{ on, attrs }">
         <h3 class="titreP">Ajouter
@@ -20,15 +21,15 @@
           </v-btn>
           </v-card-title>
           <v-divider></v-divider>
-          <!-- <br> -->
+          <v-alert v-if="alertFav == true" dismissible color="green" border="left" elevation="2" colored-border icon="mdi-bookmark">Le film <strong>{{successFav}}</strong> a été ajouté dans tes favoris</v-alert>
           <v-text-field class="input" v-model="nom" autofocus color="orange" label="Entrez film" required :append-outer-icon="nom ? 'mdi-send' : ''" v-on:keyup.enter="searchFilm"></v-text-field>
           <br>
           <v-row justify="center">
-            <v-col cols="3" id="search" v-for="(info,index) in Infos" v-bind:key="info.id" v-bind:item="info" v-bind:index="index">
-              <v-card class="white--text align-end" max-width="500" max-height="500">
-                <v-img tabindex="0" v-bind:src="'https://image.tmdb.org/t/p/original' + info.poster_path" style="cursor:pointer" height="300" width="350" v-on:keyup.enter="ajoutFilmFavoris(index)" @click ="ajoutFilmFavoris(index)"></v-img>
+            <v-col lg="2" md="4" sm="4" xs="12" id="search" v-for="(info,index) in Infos" v-bind:key="info.id" v-bind:item="info" v-bind:index="index">
+              <v-card class="white--text align-end choix" max-width="130" max-height="500">
+                <v-img tabindex="0" v-bind:src="'https://image.tmdb.org/t/p/original' + info.poster_path" style="cursor:pointer" height="180" width="350" v-on:keyup.enter="ajoutFilmFavoris(index)" @click ="ajoutFilmFavoris(index)"></v-img>
                   <v-card-text class="text--primary">                              
-                    <h6>{{info.original_title}}</h6>
+                    {{info.original_title}}
                   </v-card-text>
               </v-card>
             </v-col>
@@ -46,6 +47,7 @@
               <tr> 
                 <th scope="col">#</th>
                 <th scope="col">Titre</th>
+                <th scope="col">Genre</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
@@ -53,6 +55,8 @@
               <tr>
                 <th scope="row" tabindex="0">{{ index + 1 }}</th>
                 <td v-bind="attrs" v-on="on" tabindex="0" v-on:keyup.enter="DetailFilm(index)" @click="DetailFilm(index)">{{ Favs.Titre[index] }}</td>
+                <td scope="row" tabindex="0" v-if="Favs.Genre_Id[index].length > 1">{{ Favs.Genre_Id[index][0] }}, {{ Favs.Genre_Id[index][1] }}, {{ Favs.Genre_Id[index][2] }}</td>
+                <td scope="row" tabindex="0" v-else>{{ Favs.Genre_Id[index][0] }}</td>
                 <th scope="row">
                   <v-btn icon tabindex="0" v-on:keyup.enter="supprimerFilmFavoris(index)" @click="supprimerFilmFavoris(index)">
                     <v-icon>mdi-archive</v-icon>
@@ -64,18 +68,18 @@
         </template>
         <v-card>
           <v-card-title>Description du film
-            <v-btn icon style="position:absolute; left: 95%" v-on:keyup.esc="details = false" @click="details = false">
+            <v-btn icon style="position:absolute; left: 88%" v-on:keyup.esc="details = false" @click="details = false">
               <v-icon>mdi-close</v-icon>
             </v-btn>
           </v-card-title>
           <v-divider></v-divider>
-          <br>
           <v-container>
-            <v-img v-bind:src='Description.poster' class="image" height="350" width="240"></v-img>
+            <v-img v-bind:src='Description.poster' class="image" height="370" width="340"></v-img>
             <h1>{{ Description.titre }}</h1>
-            {{ Description.genre_Id[0]}}, {{ Description.genre_Id[1]}}, {{ Description.genre_Id[2]}}
+            <a v-if="Description.genre_Id.length > 1">{{ Description.genre_Id[0]}}, {{ Description.genre_Id[1]}}, {{ Description.genre_Id[2]}}</a>
+            <a v-else>{{ Description.genre_Id[0]}}</a>
             <br><br>
-            <p class="titre"><strong> Date de Sortie : </strong>{{ Description.date }}</p>
+            <p class="titre"><strong> Date de Sortie : </strong>{{ Description.date_sortie }}</p>
             <p class="paragrapheD"><strong> Synopsis : </strong>{{ Description.descriptif }}</p>
             <v-container v-if="Favs.Acteur.length != 0">
               <p class="paragraphe"><strong> Acteur principaux :</strong> {{ Description.acteur[0]}} , {{ Description.acteur[1]}} , {{ Description.acteur[2]}} , {{ Description.acteur[3]}} , {{ Description.acteur[4]}}</p>
@@ -83,10 +87,10 @@
             </v-container>
             <v-card-actions>
             <v-spacer></v-spacer>
-              <v-dialog :retain-focus="false" v-model="edits" max-width="500" max-height="500"> 
+              <v-dialog :retain-focus="false" v-model="edits" max-width="500" max-height="700"> 
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn class="ma-2" tile outlined color="success" v-on:click="details = false" @click="ModifFav">Valider</v-btn>
-                  <v-btn class="ma-2" tile outlined color="success" v-bind="attrs" v-on="on" @click="MesGenres"><v-icon left>mdi-pencil</v-icon> Modifier</v-btn>
+                  <v-btn class="ma-2" tile outlined color="success" v-bind="attrs" v-on="on" v-on:click.once="MesGenres"><v-icon left>mdi-pencil</v-icon> Modifier</v-btn>
                 </template>
                 <v-card>
                   <v-card-title>Edit films</v-card-title>
@@ -115,31 +119,34 @@
       </v-dialog>
     </v-row>
     <v-row justify="center">
-      <v-col cols="2" id="search" v-for="film in listeFilms" v-bind:key="film.id">
-        <v-card class="white--text align-end" max-width="300" max-height="500">
+      <v-col lg="2" md="3" sm="4" xs="12" id="search" v-for="(film, index) in ListeFilms" v-bind:key="film.id" v-bind:index="index">
+        <v-card class="white--text align-end" :width="width" max-height="500">
           <v-dialog :retain-focus="false" max-width="1200" max-height="1200">
             <template v-slot:activator="{ on, attrs }">
-              <v-img v-bind:src="film.Poster" v-bind="attrs" v-on="on" style="cursor:pointer" height="350"></v-img>
+              <v-img v-bind:src="film.Poster" v-bind="attrs" v-on="on" style="cursor:pointer" :height="height"></v-img>
               <v-card-text class="text--primary">                              
-                <h6>{{ film.Titre }}</h6>
+                {{ film.Titre }}
               </v-card-text>
             </template>
             <v-card>
               <v-card-title>Description du film</v-card-title>
               <v-divider></v-divider>
-              <br>
               <v-container>
-                <v-img v-bind:src='film.Poster' class="image" height="350" width="240"></v-img>
+                <v-img v-bind:src='film.Poster' class="image" height="370" width="340"></v-img>
                 <h1>{{ film.Titre }}</h1>
                 {{ film.Genre[0]}}
                 <br><br>
-                <p class="titre"><strong> Date de Sortie : </strong>{{ film.Date }}</p>
+                <p class="titre"><strong> Date de Sortie : </strong>{{ film.Date_Sortie }}</p>
                 <p class="paragrapheD"><strong> Synopsis : </strong>{{ film.Descriptif }}</p>
                 <v-container v-if="film.Acteur.length != 0">
                   <p class="paragraphe"><strong> Acteur principaux :</strong> {{ film.Acteur[0]}}, {{ film.Acteur[1]}}, {{ film.Acteur[2]}}, {{ film.Acteur[3]}}, {{ film.Acteur[4]}}</p>
                   <p class="paragraphe"><strong> Direction technique :</strong> {{ film.Direction[0]}}, {{ film.Direction[1]}}, {{ film.Direction[2]}}, {{ film.Direction[3]}}, {{ film.Direction[4]}}</p>
                 </v-container>
               </v-container>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                  <v-btn color="blue darken-1" text v-on:click="edits = false" v-on:keyup.enter="ajoutModif" @click="modifierBdd(index)">Modifier</v-btn>
+                </v-card-actions>
               <br><br>
             </v-card>
           </v-dialog>
@@ -149,262 +156,5 @@
   </v-container>
 </template>
 
-<script>
-  import {Base_URL, API_KEY, firebase, maListe} from '../config/configApp';
-  import axios from 'axios'
-
-  export default {
-    name : 'app2', 
-    
-    firebase: {
-      ListeFilms : maListe,
-    },
-    
-    data () {
-      return {
-        nom: '',
-        changeNom: '',
-        modifNom: '',
-        value: [],
-        modif: [],
-        search: false,
-        edits: false,
-        details: false,
-        Infos: [],
-        InfosGenre: [],
-        InfosCast: [],
-        InfosDir: [],
-        Id_Genre: '',
-        Genre: [],
-        Favs: {
-          Id: [],
-          Genre_Id: [],
-          Acteur: [],
-          Direction: [],
-          Titre: [],
-          Date: [],
-          Poster: [],
-          Descriptif: []
-        },
-        Description: {
-          id: '',
-          genre_Id: [],
-          titre: '',
-          date: '',
-          poster: '',
-          descriptif: '',
-          acteur: [],
-          direction: []
-        },
-        lstFilms: [],
-        listeFilms: [],
-      }
-    },
-
-    created() {
-      // J'enregistre la liste de genre dans un tableau de façon permanente pour l'application
-      axios
-          .get(Base_URL + 'genre/movie/list?api_key='+ API_KEY + '&language=fr')
-          .then(response => (this.InfosGenre = response.data.genres))
-          .catch(error => {console.log(error)})
-    },
-
-    mounted() {
-      // Test sauvegarde des données en localStorage
-
-      // console.log('App mounted!');
-      // if (localStorage.getItem('lstFilms')) this.lstFilms = JSON.parse(localStorage.getItem('lstFilms'));
-
-      console.log('Firebase chargée!');
-      firebase.database().ref('/ListeFilms').once('value', snapshot => {
-        this.listeFilms = snapshot.val();
-      })
-      console.log('ListeFilms chargée!');
-    },
-
-    watch: {
-      lstFilms: {
-        handler() {
-          console.log('lstFilms changed!');
-          localStorage.setItem('lstFilms', JSON.stringify(this.lstFilms));
-        },
-        deep: true,
-      },
-    },
-  
-    methods: {
-      searchFilm() {
-        axios
-          .get(Base_URL + 'search/movie/?api_key='+ API_KEY + '&language=fr' + '&query=' + this.nom)
-          .then(response => (this.Infos = response.data.results))
-          .catch(error => {console.log(error)})
-      },
-
-      ajoutFilmFavoris(item) {
-        const Acteurs = axios
-            .get(Base_URL + 'movie/' + this.Infos[item]['id'] + '/credits?api_key='+ API_KEY)
-            .then(response => (this.InfosCast = response.data.cast))
-            .catch(error => {console.log(error)})
-        
-        const Directions = axios
-          .get(Base_URL + 'movie/' + this.Infos[item]['id'] + '/credits?api_key='+ API_KEY)
-          .then(response => (this.InfosDir = response.data.crew))
-          .catch(error => {console.log(error)})
-        
-        Promise.all([Acteurs, Directions]).then((castings) => {
-          this.Favs.Id.push(this.Infos[item]['id']);
-          this.Favs.Titre.push(this.Infos[item]['title']);
-          this.Favs.Genre_Id.push(this.Infos[item]['genre_ids']);
-          this.modifGenre();
-          this.Favs.Date.push(this.Infos[item]['release_date']);
-
-          this.Favs.Acteur[this.Favs.Id.length - 1] = new Array();
-          this.Favs.Direction[this.Favs.Id.length - 1] = new Array();
-      
-          castings[0].filter(acteur => this.Favs.Acteur[this.Favs.Id.length - 1].push(acteur.name));
-          castings[1].filter(direction => this.Favs.Direction[this.Favs.Id.length - 1].push(direction.name));  
-            
-          this.Favs.Poster.push('https://image.tmdb.org/t/p/original'+ this.Infos[item]['poster_path']);
-          this.Favs.Descriptif.push(this.Infos[item]['overview']);
-        });
-      },
-
-      modifGenre() {
-        for(let i2=0; i2 < this.Favs.Genre_Id.length; i2++) {
-          this.Id_Genre = this.Favs.Genre_Id[i2];
-        }
-
-        for(let i3=0; i3 < this.Id_Genre.length; i3++) {
-          if(this.Id_Genre[i3] == 27){this.Id_Genre[i3] = 'Horreur';} else if(this.Id_Genre[i3] == 28) {this.Id_Genre[i3] = 'Action';} else if(this.Id_Genre[i3] == 12) {this.Id_Genre[i3] = 'Aventure';} else if(this.Id_Genre[i3] == 16) {this.Id_Genre[i3] = 'Animation';} else if(this.Id_Genre[i3] == 35) {this.Id_Genre[i3] = 'Comedie';} else if(this.Id_Genre[i3] == 80) {this.Id_Genre[i3] = 'Crime';} else if(this.Id_Genre[i3] == 99) {this.Id_Genre[i3] = 'Documentaire';} else if(this.Id_Genre[i3] == 18) {this.Id_Genre[i3] = 'Drame';} else if(this.Id_Genre[i3] == 10751) {this.Id_Genre[i3] = 'Famille';} else if(this.Id_Genre[i3] == 14) {this.Id_Genre[i3] = 'Fantastique';} else if(this.Id_Genre[i3] == 36) {this.Id_Genre[i3] = 'Histoire';} else if(this.Id_Genre[i3] == 10402) {this.Id_Genre[i3] = 'Musique';} else if(this.Id_Genre[i3] == 9648) {this.Id_Genre[i3] = 'Mystère';} else if(this.Id_Genre[i3] == 10749) {this.Id_Genre[i3] = 'Romance';} else if(this.Id_Genre[i3] == 878) {this.Id_Genre[i3] = 'Science-Fiction';} else if(this.Id_Genre[i3] == 10770) {this.Id_Genre[i3] = 'TV-Movie';} else if(this.Id_Genre[i3] == 53) {this.Id_Genre[i3] = 'Thriller';} else if(this.Id_Genre[i3] == 10752) {this.Id_Genre[i3] = 'Guerre';} else if(this.Id_Genre[i3] == 37) {this.Id_Genre[i3] = 'Western';} 
-        }
-      },
-
-      supprimerFilmFavoris(item) {
-        this.Favs.Id.splice(item, 1);
-        this.Favs.Titre.splice(item, 1);
-        this.Favs.Genre_Id.splice(item, 1);
-        this.Favs.Acteur.splice(item, 1);
-        this.Favs.Direction.splice(item, 1);
-        this.Favs.Poster.splice(item, 1);
-        this.Favs.Date.splice(item, 1);
-        this.Favs.Descriptif.splice(item, 1);
-      },
-
-      DetailFilm(item) {
-        this.Description.id = this.Favs.Id[item];
-        this.changeNom = this.Description.titre = this.Favs.Titre[item];
-        this.Description.date = this.Favs.Date[item];
-        this.Description.poster = this.Favs.Poster[item];
-        this.Description.descriptif = this.Favs.Descriptif[item];
-        for(var act = 0; act < 5; act++) {
-          this.Description.acteur[act] = this.Favs['Acteur'][item][act];
-        }
-        for(var dir = 0; dir < 5; dir++) {
-          this.Description.direction[dir] = this.Favs['Direction'][item][dir];
-        }
-        for(var gen = 0; gen < 3; gen++) {
-          this.Description.genre_Id = this.Favs['Genre_Id'][item];
-        }
-        this.details = true;
-      },
-
-      MesGenres() {
-        for(var genre=0; genre < this.InfosGenre.length ; genre++) {
-          this.Genre.push(this.InfosGenre[genre]['name']);
-        }
-      },
-
-      ajoutModif() {
-        this.Description.genre_Id.splice(0, 3);
-        this.Description.titre = "";
-        this.Description.titre = this.changeNom;
-        for(var i5 = 0; i5 < this.value.length; i5++) {
-          this.Description.genre_Id.push(this.value[i5]);    
-          this.modif = this.Description.genre_Id[0];
-        }
-        this.modifNom = this.changeNom;
-
-      },
-
-      ModifFav() {
-        for(var item = 0; item < this.Favs.Id.length; item++) {
-          if(this.Description.id == this.Favs.Id[item]) {
-            var it = this.Favs.Id.indexOf(this.Favs.Id[item]);
-            this.Favs.Genre_Id[it].splice(0, 3);
-            this.Favs.Genre_Id[it].push(this.modif);
-            this.Favs.Titre[it] = this.changeNom;
-          }
-        }
-          this.value.splice(0,3);
-      },
-
-      addFilmsFirebase() {
-        for (var index = 0; index < this.Favs.Id.length; index++) {
-          maListe.child(this.Favs.Id[index]).set({
-            Titre : this.Favs.Titre[index],
-            Date : this.Favs.Date[index],
-            Genre : this.Favs.Genre_Id[index],
-            Poster : this.Favs.Poster[index], 
-            Acteur : this.Favs.Acteur[index],
-            Direction : this.Favs.Direction[index],
-            Descriptif : this.Favs.Descriptif[index]
-          }); 
-        }
-        document.location.reload(true);
-      }
-    }
-  }
-</script>
-
-<style scoped>
-  .btn_close {
-    margin-left:25px;
-    position:absolute;
-    left: 91%;
-  }
-
-  .input {
-    margin-left: 20px;
-    margin-right: 20px;
-  }
-
-  #search {
-    margin-left: 14px;
-  }
-
-  .titreP {
-    text-align: left;
-    margin-left: 7%;
-    margin-bottom: -20px;
-    color: grey;
-  }
-
-  .titre {
-    text-align: left;
-  }
-
-  .paragraphe {
-    text-align: justify;
-  }
-
-  .paragraphe_b {
-    text-align: justify;
-    text-overflow: ellipsis;
-  }
-
-  .paragrapheD {
-    text-align: justify;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    max-height: 80px;      /* fallback */
-    -webkit-line-clamp: 3; /* number of lines to show */
-    -webkit-box-orient: vertical;
-  }
-
-  .image {
-    float: left;
-    margin-right: 30px;
-  }
-
-</style>
+<script src="./js/Films.js"></script>
+<style src="../assets/css/style.css"></style>
