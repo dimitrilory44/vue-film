@@ -1,19 +1,46 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Accueil from '@/Pages/Accueil.vue'
-import Films from '@/Pages/Films.vue'
-// import Film from '@/components/film.vue'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import Dashboard from '@/pages/Dashboard';
+import Accueil from '@/components/dashboard/Accueil.vue';
+import Films from '@/components/dashboard/Films.vue';
+import Register from '@/components/form-auth/Form-Register.vue';
+import Connexion from '@/components/form-auth/Form-LogIn.vue';
+import NotFound from '@/NotFound.vue';
+// import Hello from '@/components/HelloWorld.vue'
+import Home from '../pages/Home.vue';
 
 Vue.use(VueRouter)
 export default new VueRouter({
   routes: [
     {
+      path: '/home',
+      component: Home
+    }, 
+    {
+      path: '/register',
+      component: Register
+    }, 
+    {
+      path: '/connexion',
+      component: Connexion
+    },
+    {
       path: '/',
-      component: Accueil
-    },{
-      path: '/film',
-      component: Films
-    }
+      component: Dashboard,
+      children: [{
+        path: '/',
+        component: Accueil
+      }, {
+        path: "films",
+        components: {
+          Default : Accueil,
+          film : Films,
+        }
+      }]
+    },
+    { path: '/404', component: NotFound },
+    { path: '/*', component: NotFound },    
+    { path: '*', redirect: '/404' }
   ],
   mode: 'history'
 })

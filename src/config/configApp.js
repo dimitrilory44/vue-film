@@ -19,8 +19,9 @@ const API_KEY = '******************************';
 const app = firebase.initializeApp(config);
 const db = app.database();
 
-const maListe = db.ref('ListeFilms');
+const maListeFilms = db.ref('Films');
+const maListeTest = db.ref('Test');
 
-const LienAppli = "http://192.168.1.17:8080";
+const LienAppli = "https://dimitri-lory.fr/";
 
-export {axios, moment, Base_URL, API_KEY, firebase, maListe, LienAppli}
+export {axios, moment, Base_URL, API_KEY, firebase, maListeTest, maListeFilms, LienAppli}

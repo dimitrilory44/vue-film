@@ -81,7 +81,7 @@
 </template>
 
 <script>
-import {LienAppli} from '../config/configApp';
+import {LienAppli} from '../../config/configApp';
 
 export default {
   name: 'Footer',

@@ -1,9 +1,13 @@
 /* ACCUEIL */
 
-#searchAccueil {
-  margin-left: 1%;
-  /* margin-right: 10px; */
+a {
+  margin-right: 20px;
 }
+
+/* #searchAccueil {
+  margin-left: 1%;
+  /* margin-right: 10px; 
+} */
 
 .imageAccueil {
   float: left;
@@ -13,47 +17,65 @@
 
 .titreAccueil {
   text-align: left;
-  margin-left: 7%;
+  /* margin-left: 7%; */
 }
 
 .titreAccueil {
   text-align: left;
-  margin-left: 7%;
+  /* margin-left: 7%; */
 }
 
 .titrePAccueil {
   text-align: left;
-  margin-left: 7%;
+  /* margin-left: 6%; */
+  margin-top: -10px;
   color: grey;
 }
 
-#searchAccueil {
+/* #searchAccueil {
   margin-left: 1%;
   margin-right: 5px;
-}
+} */
 
 .myposter {
   height: 220px;
 }
 
 @media (max-width: 500px) {
-  #search {
+  .titreP {
+    margin-left: -8%;
+  }
+
+  .mycard {
+    width: 150px;
+  }
+
+  .myimg {
+    height: 220px;
+  }
+
+  /* #search {
     margin-left: 5%!important;
     margin-right: 0px!important;
-  }
+  } */
 
-  #searchAccueil {
+  /* #searchAccueil {
     margin-left: 5%;
-    /* margin-right: 10px; */
-  }
+    /* margin-right: 10px;
+  } */
 
   .titrePAccueil {
-    margin-left: 5%;
+    /* margin-left: 5%; */
+    width: 343px;
   }
 
-  .titreAccueil {
-    margin-left: 12px;
-  }
+  /* .titreAccueil { */
+    /* margin-left: 12px; */
+  /* } */
+
+  /* .titreAccueilD { */
+    /* margin-left: 12px; */
+  /* } */
 }
 
 @media (min-width: 1000px) and (max-width: 2000px) {
@@ -62,7 +84,19 @@
     
   }
 
+  .titreP {
+    margin-left: -1.7%;
+  }
+
   .myposter {
+    height: 270px;
+  }
+
+  .mycard {
+    width: 200px;
+  }
+
+  .myimg {
     height: 270px;
   }
   
@@ -82,23 +116,25 @@
 }
 
 #search {
-  margin-right: 20px;
+  margin-left: 15px;
 }
 
 .titreP {
   text-align: left;
-  margin-left: 5%;
-  margin-bottom: -20px;
+  /* margin-left: -6%;  */
+  margin-top: -30px;
+  margin-bottom: -15px;
   color: grey;
 }
 
 .titre {
   text-align: left;
-  margin-left: 12px;
+  /* margin-left: 12px; */
 }
 
 .paragraphe {
   text-align: justify;
+  margin-right: 10px;
 }
 
 .paragraphe_b {

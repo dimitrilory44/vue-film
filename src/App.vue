@@ -2,34 +2,55 @@
   <v-app>  
     <top></top>
     <v-main id="#app">
-      <!-- <v-row>
-        <v-col cols="2" style="border-right:2px dashed grey;">
-          <Filtres/>
-        </v-col>
-        <v-col cols="10"> -->
         <br>
-        <router-view></router-view>
-        <!-- </v-col>
-      </v-row> -->
+        <dashboard v-if="isLogged == true"></dashboard>
+        <home v-else></home>
+        <br>
     </v-main>
+    <bottom></bottom> 
   </v-app>
 </template>
 
 <script>
 // import Filtres from './components/Filtres';
-import Top from './components/Header';
+import Top from './pages/common/Header';
+import Bottom from './pages/common/Footer';
+import Home from './pages/Home.vue';
+import Dashboard from './pages/Dashboard';
+import {firebase} from './config/configApp';
 
 export default {
   name: 'App',
 
-  components: {
-    // Filtres,
-    Top
+  data() {
+    return {
+      isLogged: false,
+    }
   },
+
+  components: {
+    Top,
+    Home,
+    Dashboard,
+    Bottom
+  },
+
+  mounted() {
+    firebase.auth().onAuthStateChanged((user) => {
+        this.isLogged = !!user;
+        if(user) {
+            this.isLogged = true;
+        } else {
+            this.isLogged = false;
+        }
+    })
+  },
+
 };
 </script>
 
 <style scoped>
+  
   #app {
     text-align: center;
   }
