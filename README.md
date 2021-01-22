@@ -1,4 +1,4 @@
-﻿# ProjetFilm : Création d'une videothèque avec Vue.js et Firebase
+﻿﻿# ProjetFilm : Création d'une videothèque avec Vue.js et Firebase
 
 ## Page Home :
 
@@ -8,4 +8,4 @@
 
 ![Capture](https://user-images.githubusercontent.com/40861838/92920827-3a7cfa80-f433-11ea-9ec9-7676fbde0112.PNG)
 
-Disponible sur : https://dimitri-lory.fr/
+Disponible sur : https://videotheque.dimitri-lory.fr/
