@@ -1,5 +1,4 @@
 <template>
-
     <v-container fluid>
         <v-card-title>Cherche un film
             <v-btn icon class="closeSearch" style="position:absolute; " @click="closeSearch">
