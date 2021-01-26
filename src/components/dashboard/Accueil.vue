@@ -1,6 +1,7 @@
 <template>
   <v-container fluid>
     <devmode :ListeFilms="Films" :ListeFilmsTest="FilmsTest" v-bind:tested="test" v-on:show="updateTest($event)" v-on:hide="updateTestHide($event)"></devmode>
+    <v-alert dense type="info" style="margin-top: -60px" v-if="isAnonymous">{{Anonymous}}</v-alert>
     <h4 class="titrePAccueil" v-if="logged">Films ajoutés dernièrement</h4>
     <not-found v-else></not-found>
     <liste-test v-bind:FilmsTest="FilmsTest" v-if="test === true"></liste-test>
@@ -33,6 +34,8 @@
         verify: false,
         ListeFilms: [],
         FilmsTest: [],
+        Anonymous: "",
+        isAnonymous: false
       }
     },
 
@@ -42,6 +45,10 @@
           this.logged = true;
         } else {
           this.logged = false;
+        }
+        if(user.displayName === null) {
+          this.Anonymous = "Vous êtes connecté pour tester l'application, vous avez accès au minimum"
+          this.isAnonymous = true;
         }
       });
 

@@ -4,11 +4,6 @@ a {
   margin-right: 20px;
 }
 
-/* #searchAccueil {
-  margin-left: 1%;
-  /* margin-right: 10px; 
-} */
-
 .imageAccueil {
   float: left;
   height: 500px;
@@ -17,25 +12,17 @@ a {
 
 .titreAccueil {
   text-align: left;
-  /* margin-left: 7%; */
 }
 
 .titreAccueil {
   text-align: left;
-  /* margin-left: 7%; */
 }
 
 .titrePAccueil {
   text-align: left;
-  /* margin-left: 6%; */
   margin-top: -10px;
   color: grey;
 }
-
-/* #searchAccueil {
-  margin-left: 1%;
-  margin-right: 5px;
-} */
 
 .myposter {
   height: 220px;
@@ -54,28 +41,14 @@ a {
     height: 220px;
   }
 
-  /* #search {
-    margin-left: 5%!important;
-    margin-right: 0px!important;
-  } */
-
-  /* #searchAccueil {
-    margin-left: 5%;
-    /* margin-right: 10px;
-  } */
-
   .titrePAccueil {
-    /* margin-left: 5%; */
     width: 343px;
   }
 
-  /* .titreAccueil { */
-    /* margin-left: 12px; */
-  /* } */
+  .closeSearch {
+    left: 87%;
+  }
 
-  /* .titreAccueilD { */
-    /* margin-left: 12px; */
-  /* } */
 }
 
 @media (min-width: 1000px) and (max-width: 2000px) {
@@ -99,15 +72,23 @@ a {
   .myimg {
     height: 270px;
   }
+
+  .closeSearch {
+    left: 93%;
+  }
   
 }
 
 /* FILMS */
 
 .btn_close {
-  /* margin-left:25px; */
   position:absolute;
   left: 89%;
+}
+
+.tuto {
+  width: 88%;
+  height: 25%;
 }
 
 .input {
@@ -121,7 +102,6 @@ a {
 
 .titreP {
   text-align: left;
-  /* margin-left: -6%;  */
   margin-top: -30px;
   margin-bottom: -15px;
   color: grey;
@@ -129,7 +109,6 @@ a {
 
 .titre {
   text-align: left;
-  /* margin-left: 12px; */
 }
 
 .paragraphe {

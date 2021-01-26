@@ -52,7 +52,8 @@ export default {
         test: false,
         alert: false,
         success: "",
-        bdd: false
+        bdd: false,
+        largeur: window.innerWidth
       }
     },
 
@@ -80,6 +81,7 @@ export default {
             }); 
           } else {
             maListeTest.child('Id').child(this.Films.Id[item]).set({
+              /* Id : this.Films.Id[item], */
               Titre : this.Films.Titre[item],
               Date_Sortie : this.Films.Date_Sortie[item],
               Date_Creation : this.Films.Date_Creation[item],

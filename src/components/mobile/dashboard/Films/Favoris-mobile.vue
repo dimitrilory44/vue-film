@@ -1,6 +1,6 @@
 <template>
     <v-container fluid style="margin-top: -20px">
-        <v-dialog :retain-focus="false" v-model="description" width="1200" max-height="450" v-if="favs.Id.length != 0">
+        <v-dialog fullscreen :retain-focus="false" v-model="description" max-height="450" v-if="favs.Id.length != 0">
             <template v-slot:activator="{ on, attrs }">
                 <br>
                 <table class="table table-hover" style="width: 100%; margin-bottom: 30px">
@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import UpdateFavoris from './UpdateFavoris.vue';
+import UpdateFavoris from '../../../dashboard/Films/UpdateFavoris';
 
 export default {
     name: "favoris",

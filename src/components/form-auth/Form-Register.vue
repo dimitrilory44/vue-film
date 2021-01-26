@@ -4,7 +4,7 @@
             <v-text-field class="input" label="Email" v-model="form.email" autofocus required placeholder="Entrer un email"></v-text-field>
         </v-container>
         <v-container class="form-group">
-            <v-text-field class="input" label="Surnom" v-model="form.surnom" autofocus required placeholder="Entrer un surnom"></v-text-field>
+            <v-text-field class="input" label="Nom" v-model="form.nom" autofocus required placeholder="Entrer un nom"></v-text-field>
         </v-container>
         <v-container class="form-group">            
             <v-text-field class="input" label="Password" :type="show ? 'text' : 'password'" :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'" v-model="form.password" @click:append="show = !show" autofocus required placeholder="Entrer un password"></v-text-field>
@@ -26,7 +26,7 @@ export default {
         return {
             form: {
                 email: "",
-                surnom: "",
+                nom: "",
                 password: ""
             },
             login: "",
@@ -44,7 +44,7 @@ export default {
                     this.$router.replace({path : "/"});
                     console.log(this.login);
                     result.user.updateProfile({
-                        displayName: this.form.surnom
+                        displayName: this.form.nom
                     })
                 })
                 

@@ -1,15 +1,15 @@
 <template>
     <v-container fluid>
         <v-card-title>Cherche un film
-            <v-btn icon style="position:absolute; left: 86%" @click="search = false">
+            <v-btn icon class="closeSearch" style="position:absolute; " @click="closeSearch">
                 <v-icon>mdi-close</v-icon>
             </v-btn>
         </v-card-title>
         <v-divider></v-divider>
         <v-alert v-if="alertFav == true" dismissible color="green" border="left" elevation="2" colored-border icon="mdi-bookmark">Le film <strong>{{successFav}}</strong> a été ajouté dans tes favoris</v-alert>
-        <v-text-field class="input" v-model="nom" autofocus color="orange" label="Entrez film" required :append-outer-icon="nom ? 'mdi-send' : ''" v-on:keyup.enter="searchFilm"></v-text-field>
+        <v-text-field class="input" v-model="nom" autofocus color="orange" label="Entrez film" required :append-outer-icon="nom ? 'mdi-send' : ''" v-on:keyup.enter="searchFilm" v-if="isAnonymous != null"></v-text-field>
         <br>
-        <v-row justify="center">
+        <v-row justify="center" v-if="isAnonymous != null">
             <v-col lg="2" md="2" sm="2" xs="12" id="search" v-for="(info,index) in Infos" v-bind:key="info.id" v-bind:item="info" v-bind:index="index">
                 <v-card class="white--text align-end choix" max-width="130" max-height="500">
                     <v-img tabindex="0" v-bind:src="'https://image.tmdb.org/t/p/original' + info.poster_path" style="cursor:pointer" height="180" width="350" v-on:keyup.enter="ajoutFilmFavoris(index)" @click ="ajoutFilmFavoris(index)"></v-img>
@@ -19,16 +19,20 @@
                 </v-card>
             </v-col>
         </v-row>
+        <tuto-anonyme v-else></tuto-anonyme>
     </v-container>
 </template>
 
 <script>
-import {axios, moment, Base_URL, API_KEY} from '../../../config/configApp';
+import {axios, moment, Base_URL, API_KEY, firebase} from '../../../config/configApp';
+import TutoAnonyme from './TutoAnonyme.vue';
+
 export default {
+  components: { TutoAnonyme },
     name: "searchFilms",
 
     props: {
-      Id: Array, Genre_Id: Array, Acteur: Array, Direction: Array, Titre: Array, Date_Sortie: Array, Date_Creation: Array, Poster: Array, Descriptif: Array
+      Id: Array, Genre_Id: Array, Acteur: Array, Direction: Array, Titre: Array, Date_Sortie: Array, Date_Creation: Array, Poster: Array, Descriptif: Array, search: Boolean
     },
 
     data() {
@@ -40,10 +44,21 @@ export default {
             Id_Genre: '',
             alertFav: false,
             successFav: "",
+            isAnonymous: ""
         }
     },
 
+    mounted() {
+      firebase.auth().onAuthStateChanged((user) => {
+          if(user) {
+              this.isAnonymous = user.displayName;
+          } 
+      })
+  },
+
     methods: {
+      closeSearch() {this.$emit('close', false);},
+
       searchFilm() {
         axios
           .get(Base_URL + 'search/movie/?api_key='+ API_KEY + '&language=fr' + '&query=' + this.nom)

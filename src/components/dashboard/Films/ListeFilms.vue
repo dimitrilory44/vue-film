@@ -10,7 +10,7 @@
               </v-card-text>
             </template>
             <v-card>
-              <v-card-title>Description du film</v-card-title>
+              <v-card-title></v-card-title>
               <v-divider></v-divider>
               <v-container>
                 <v-img v-bind:src='film.Poster' class="image" height="370" width="340"></v-img>
@@ -24,11 +24,8 @@
                   <p class="paragraphe"><strong> Direction technique :</strong> {{ film.Direction[0]}}, {{ film.Direction[1]}}, {{ film.Direction[2]}}, {{ film.Direction[3]}}, {{ film.Direction[4]}}</p>
                 </v-container>
               </v-container>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                  <v-btn color="blue darken-1" text v-on:click="edits = false" v-on:keyup.enter="ajoutModif" @click="modifierBdd(index)">Modifier</v-btn>
-                </v-card-actions>
-              <br><br>
+              <br>
+              <v-card-title></v-card-title>
             </v-card>
           </v-dialog>
         </v-card>
@@ -40,7 +37,6 @@
 import {maListeFilms} from '../../../config/configApp';
 
 export default {
-
     props: {
         ListeFilms: {
             type: Array,
@@ -60,7 +56,4 @@ export default {
     },
 }
 </script>
-
-<style>
-
-</style>
+<style></style>

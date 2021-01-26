@@ -22,6 +22,6 @@ const db = app.database();
 const maListeFilms = db.ref('Films');
 const maListeTest = db.ref('Test');
 
-const LienAppli = "https://dimitri-lory.fr/";
+const LienAppli = "https://videotheque.dimitri-lory.fr/";
 
 export {axios, moment, Base_URL, API_KEY, firebase, maListeTest, maListeFilms, LienAppli}

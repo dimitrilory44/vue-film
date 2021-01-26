@@ -24,7 +24,7 @@ export default {
 
   data() {
     return {
-      isLogged: false,
+      isLogged: false, 
     }
   },
 

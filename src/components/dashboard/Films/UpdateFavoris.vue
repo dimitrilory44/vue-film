@@ -1,7 +1,7 @@
 <template>
     <v-container fluid>
-        <v-card-title>Description du film
-            <v-btn icon style="position:absolute; left: 86%" v-on:keyup.esc="update = false" @click="update = false">
+        <v-card-title>
+            <v-btn icon class="closeSearch" style="position:absolute; " @click="closeFavoris">
                 <v-icon>mdi-close</v-icon>
             </v-btn>
         </v-card-title>
@@ -60,6 +60,7 @@ export default {
         favs: {type: Object, required: true},
         genre: {type: Array, required: true},
         change: {type: String, required: true},
+        update: {type: Boolean, required: true}
     },
 
     data() {
@@ -67,7 +68,6 @@ export default {
             modif: [],
             modifNom: '',
             details: false,
-            update: false,
             edits: false,
             value: [],
             Genre: []
@@ -75,6 +75,8 @@ export default {
     },
 
     methods: {
+        closeFavoris() {this.$emit('close', false);},
+
         MesGenres() {
             for(var genre=0; genre < this.genre.length ; genre++) {
                 this.Genre.push(this.genre[genre]['name']);
@@ -105,6 +107,7 @@ export default {
                 }
             }
             this.value.splice(0,3);
+            this.$emit('close', false);
         },
     }
 }

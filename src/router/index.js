@@ -6,10 +6,11 @@ import Films from '@/components/dashboard/Films.vue';
 import Register from '@/components/form-auth/Form-Register.vue';
 import Connexion from '@/components/form-auth/Form-LogIn.vue';
 import NotFound from '@/NotFound.vue';
-// import Hello from '@/components/HelloWorld.vue'
+import Hello from '@/components/autres/HelloWorld.vue';
 import Home from '../pages/Home.vue';
 
 Vue.use(VueRouter)
+
 export default new VueRouter({
   routes: [
     {
@@ -35,9 +36,10 @@ export default new VueRouter({
         components: {
           Default : Accueil,
           film : Films,
-        }
+        },
       }]
     },
+    { path: '/film', component: Hello, name: 'film'},
     { path: '/404', component: NotFound },
     { path: '/*', component: NotFound },    
     { path: '*', redirect: '/404' }

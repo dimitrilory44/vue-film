@@ -11,7 +11,7 @@
           <v-toolbar-title style="text-indent:1.1em; color:grey; font-size: 25px">Videothèque {{utilisateur.nom}}</v-toolbar-title>
           <v-spacer></v-spacer>
           <register></register>
-          <v-menu bottom right offset-y v-if="logged">
+          <v-menu bottom right offset-y v-if="logged && !isAnonymous">
             <template v-slot:activator="{ on, attrs }">
               <v-btn icon v-bind="attrs" v-on="on">
                 <v-icon v-if="utilisateur.nom">mdi-account</v-icon>
@@ -75,6 +75,7 @@ export default {
           nom: ""
       },
       logged: false,
+      isAnonymous: false
     }
   },
 
@@ -86,6 +87,9 @@ export default {
           this.logged = true;
         } else {
           this.logged = false;
+        }
+        if(user.displayName === null) {
+          this.isAnonymous = true;
         }
       })
   },
