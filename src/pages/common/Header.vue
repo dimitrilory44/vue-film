@@ -5,9 +5,6 @@
           <router-link to='/' tag='span' style='cursor: pointer'>              
             <img src="../../assets/pellicule.png" style="cursor:pointer; margin-left: 3px" height="40" width="40"/>
           </router-link>
-          <!-- <router-link to='/home' tag='span' style='cursor: pointer' v-else> -->
-            <!-- <img src="../assets/pellicule.png" style="cursor:pointer; margin-left: 11px" height="40" width="40"/> -->
-          <!-- </router-link> -->
           <v-toolbar-title style="text-indent:1.1em; color:grey; font-size: 25px">Videothèque {{utilisateur.nom}}</v-toolbar-title>
           <v-spacer></v-spacer>
           <register></register>
@@ -23,7 +20,6 @@
                     <v-divider></v-divider>
                     <v-container style="text-align:left; margin-left:5px; text-align: justify;">
                         <p><strong>API : </strong><a href="https://www.themoviedb.org/" target="_BLANK">The Movie Database</a></p> 
-                        <!-- <p><strong>API KEY : </strong>{{key}}</p>  -->
                         <p><strong>STOCKAGE : </strong><a href="https://firebase.google.com/" target="_BLANK">Firebase</a></p>
                         <p><strong>LIEN VERS : </strong><a :href="lien" target="_BLANK">Videothèque</a></p> 
                     </v-container>
