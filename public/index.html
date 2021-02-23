@@ -9,12 +9,83 @@
     <title><%= htmlWebpackPlugin.options.title %></title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   </head>
   <body>
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
-    <div id="app"></div>
+
+    <style>
+      .app-loading {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+      }
+    
+      .app-loading .spinner {
+        height: 200px;
+        width: 200px;
+        animation: rotate 2s linear infinite;
+        transform-origin: center center;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+      }
+    
+      .app-loading .logo {
+        height: 700px;
+      }
+
+      .app-loading .spinner .path {
+        stroke-dasharray: 1, 200;
+        stroke-dashoffset: 0;
+        animation: dash 3s ease-in-out infinite;
+        stroke-linecap: round;
+        stroke: #ddd;
+      }
+
+      .app-loading .logo img  {
+        margin-top: 330px;
+      }
+    
+      @keyframes rotate {
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    
+      @keyframes dash {
+        0% {
+          stroke-dasharray: 1, 200;
+          stroke-dashoffset: 0;
+        }
+        50% {
+          stroke-dasharray: 89, 200;
+          stroke-dashoffset: -35px;
+        }
+        100% {
+          stroke-dasharray: 89, 200;
+          stroke-dashoffset: -124px;
+        }
+      }
+    </style>
+    <div id="app">
+      <div class="app-loading">
+        <div class="logo">
+          <img src="./film.ico" width="40" height="40"/>
+        </div>
+        <svg class="spinner" viewBox="25 25 50 50">
+          <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+        </svg>
+      </div>
+    </div>
     <!-- built files will be auto injected -->
   </body>
 </html>

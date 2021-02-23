@@ -1,7 +1,7 @@
 <template>
   <v-app>  
     <top></top>
-    <v-main id="#app">
+    <v-main>
         <br>
         <dashboard v-if="isLogged == true"></dashboard>
         <home v-else></home>
@@ -24,7 +24,7 @@ export default {
 
   data() {
     return {
-      isLogged: false, 
+      isLogged: false,
     }
   },
 
