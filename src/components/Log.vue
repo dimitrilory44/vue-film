@@ -3,11 +3,11 @@
         <template v-slot:activator="{ on, attrs }">
             <v-btn icon v-bind="attrs" v-on="on" v-if="loggedIn">
                 <router-link to="/connexion" tag='span'>
-                    <v-icon>mdi-login</v-icon>
+                    <v-icon>mdi-account-key</v-icon>
                 </router-link>
             </v-btn>
             <v-btn icon v-on:click.once="loggout" v-else>
-                <v-icon>mdi-logout</v-icon>
+                <v-icon>mdi-account-remove</v-icon>
             </v-btn>
         </template>
         <v-card>

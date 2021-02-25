@@ -7,11 +7,10 @@
           </router-link>
           <v-toolbar-title style="text-indent:1.1em; color:grey; font-size: 25px">Videothèque {{utilisateur.nom}}</v-toolbar-title>
           <v-spacer></v-spacer>
-          <register></register>
           <v-menu bottom right offset-y v-if="logged && !isAnonymous">
             <template v-slot:activator="{ on, attrs }">
               <v-btn icon v-bind="attrs" v-on="on">
-                <v-icon v-if="utilisateur.nom">mdi-account</v-icon>
+                <v-icon v-if="utilisateur.nom">mdi-cog</v-icon>
               </v-btn>
             </template>
             <v-card>
@@ -55,12 +54,11 @@
 <script>
 import {API_KEY, LienAppli, firebase} from '../../config/configApp';
 import Log from '../../components/Log';
-import Register from '../../components/Register';
 
 export default {
   name: 'Header',
 
-  components: {"Log": Log, "Register" : Register},
+  components: {"Log": Log},
 
   data () {
     return {
