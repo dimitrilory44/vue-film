@@ -1,11 +1,23 @@
-﻿﻿# ProjetFilm : Création d'une videothèque avec Vue.js et Firebase
+﻿﻿# 🎬 FilmApp - Application de Gestion de Films
 
-## Page Home :
+## Description
 
-![capture1](https://user-images.githubusercontent.com/40861838/105151148-e6cb9d80-5b05-11eb-9a94-d97436b2454f.png)
+**FilmApp** est une application web construite avec **Vue.js** permettant aux utilisateurs de rechercher des films, consulter leurs détails (description, acteurs, date de sortie, etc.), et ajouter des films à leur liste de favoris. L'application utilise l'API de **The Movie Database (TMDb)** pour récupérer des données sur les films en temps réel.
 
-## Page Dashboard (après authentification) :
+---
 
-![Capture](https://user-images.githubusercontent.com/40861838/92920827-3a7cfa80-f433-11ea-9ec9-7676fbde0112.PNG)
+- **frontend/vue** : Première version de mon projet avec du vue2, une couche graphique vuetify et une base de données Firebase.
 
-Disponible sur : https://videotheque.dimitri-lory.fr/
+## 🌱 Branches principales
+
+- **[frontend/vue](https://github.com/dimitrilory44/vue-film/tree/frontend/vue)** : Branche stable avec la version actuelle de l'application.
+
+---
+
+## 🔧 Installation
+
+### 1. Cloner le repo (indiquer la branche du que vous souhaiter cloner)
+
+```bash
+git clone https://github.com/dimitrilory44/repo.git
+cd ton-repo
